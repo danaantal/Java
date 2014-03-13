@@ -37,6 +37,10 @@ public class Xyz {
 //            System.out.println("Nr litere: ");
 //            pLitere = Integer.parseInt(buff3.readLine());
 //        }
+        if(Integer.parseInt(args[1])> 2 || Integer.parseInt(args[1]) < 50){
         TheGame game = new TheGame(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
+        }
+        else
+            System.out.println("Numarul de litere sa fie mai mare sau egal cu 3!!");
     }
 }

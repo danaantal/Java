@@ -24,19 +24,26 @@ public class TheGame {
         for (Jucator j : jucatori) {
             System.out.println("#" + j.nume);
         }
+//        jucatori.get(0).word = new char[]{'K', 'I', 'G', 'E', 'C'};
+//        jucatori.get(1).word = new char[]{'A', 'B', 'G', 'E', 'C'};
+//        jucatori.get(2).word = new char[]{'A', 'B', 'C', 'D', 'E'};
+
         for (int i = 0; i < p; i++) {
+            ArrayList<Jucator> castigatori = new ArrayList<>();
             for (Jucator j : jucatori) {
 
                 j.word[i] = j.getCharForP();
-             //   j.word = new char[]{'K', 'I', 'G', 'E', 'C'};
+                System.out.println("****");
+                System.out.print("#" + j.nume + " ");
                 System.out.println(j.word);
 
-                System.out.println("****");
                 if (j.winnerIs(j.word)) {
-                    System.out.println(j.nume + " a castigat"); 
-                    jucatori.remove(j);
+                    System.out.println("#" + j.nume + " a castigat!");
+                    castigatori.add(j);
                 }
             }
+            jucatori.removeAll(castigatori);
+
 
         }
     }

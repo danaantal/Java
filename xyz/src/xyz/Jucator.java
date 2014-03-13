@@ -32,10 +32,11 @@ public class Jucator {
 
             if (ratio != oldRatio) {
                 return false;
-            }
+        }
         }
         return true;
     }
+    
 
     public char getCharForP() {
         char ch = (char) (90 - (Math.random() * 25));
