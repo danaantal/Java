@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author Danna
  */
 public class TheGame {
-    
 
     public ArrayList<Jucator> jucatori;
 
@@ -25,10 +24,20 @@ public class TheGame {
         for (Jucator j : jucatori) {
             System.out.println("#" + j.nume);
         }
-        
-        for (Jucator j : jucatori) {
-            j.winnerIs(p);
+        for (int i = 0; i < p; i++) {
+            for (Jucator j : jucatori) {
+
+                j.word[i] = j.getCharForP();
+             //   j.word = new char[]{'K', 'I', 'G', 'E', 'C'};
+                System.out.println(j.word);
+
+                System.out.println("****");
+                if (j.winnerIs(j.word)) {
+                    System.out.println(j.nume + " a castigat"); 
+                    jucatori.remove(j);
+                }
+            }
+
         }
     }
-
 }
