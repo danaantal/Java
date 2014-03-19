@@ -23,6 +23,7 @@ public class Pi {
         double i = 0;
         double pi = 0;
         double previous, current;
+        long t0 = System.currentTimeMillis();
 //        System.out.println("Dati n: ");
 //        BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
 //        int n = Integer.parseInt(buff.readLine());
@@ -64,12 +65,16 @@ public class Pi {
             }
 
         } while (true);
+        
+        long t1 = System.currentTimeMillis();
 
 
         // System.out.println(pi * 4 + " " + System.currentTimeMillis());
 
 
-        System.out.println("PI este:" + pi * 4 + " " + System.currentTimeMillis());
+        System.out.println("PI este:" + pi * 4 + " ");
+        System.out.print(" milisecunde ");
+        System.out.println(t1-t0);
       
     }
 
