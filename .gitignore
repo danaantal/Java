@@ -5,3 +5,4 @@
 *.war
 *.ear
 /Matrix/nbproject/private/
+/Matrix/build/
