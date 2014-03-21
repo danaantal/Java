@@ -39,22 +39,10 @@ public class Matrix {
             }
         }
         matrix.setMatrix(m);
-
-        for (int i = 0; i < matrix.getRow(); i++) {
-            System.out.println("");
-            for (int j = 0; j < matrix.getColumn(); j++) {
-                System.out.print(matrix.getMatrix()[i][j] + " ");
-            }
-        }
-        System.out.println();
+        matrix.display();
 
         MatrixClass M = matrix.multiplyingM(x, y, d);
-        for (int i = 0; i < M.getRow(); i++) {
-            System.out.println("");
-            for (int j = 0; j < M.getColumn(); j++) {
-                System.out.print(M.getMatrix()[i][j] + " ");
-            }
-        }
+        M.display();
         
 
     }

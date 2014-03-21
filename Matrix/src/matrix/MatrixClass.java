@@ -71,7 +71,17 @@ public class MatrixClass {
         M = this;
     }
 
-    private int[][] addingNo(int x) { //adunam numar
+    public void display() {
+        for (int i = 0; i < row; i++) {
+            System.out.println("");
+            for (int j = 0; j < column; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }       
+        }
+        System.out.println();
+    }
+
+    public int[][] addingNo(int x) { //adunam numar
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix[0].length; j++) {
                 matrix[i][j] += x;
@@ -80,7 +90,7 @@ public class MatrixClass {
         return matrix;
     }
 
-    private int[][] decreasingNo(int x) { //scadem numar
+    public int[][] decreasingNo(int x) { //scadem numar
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix[0].length; j++) {
                 matrix[i][j] -= x;
@@ -89,7 +99,7 @@ public class MatrixClass {
         return matrix;
     }
 
-    private int[][] addingM(int r, int c, int[][] m) throws Exception { //adaugam matrice
+    public int[][] addingM(int r, int c, int[][] m) throws Exception { //adaugam matrice
         m = new int[r][c];
         if (r != row && c != column) {
             throw new Exception();
@@ -103,7 +113,7 @@ public class MatrixClass {
         return matrix;
     }
 
-    private int[][] decreasingM(int r, int c, int[][] m) throws Exception { //scadem matrice
+    public int[][] decreasingM(int r, int c, int[][] m) throws Exception { //scadem matrice
         m = new int[r][c];
         if (r != row && c != column) {
             throw new Exception();
@@ -117,7 +127,7 @@ public class MatrixClass {
         return matrix;
     }
 
-    private int[][] identity() { //matricea identica
+    public int[][] identity() { //matricea identica
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix[0].length; j++) {
                 matrix[i][j] = 1;
@@ -126,7 +136,7 @@ public class MatrixClass {
         return matrix;
     }
 
-    private int[][] multiplyingNo(int x) throws Exception { //inmultim cu numar
+    public int[][] multiplyingNo(int x) throws Exception { //inmultim cu numar
 
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix[0].length; j++) {
@@ -138,19 +148,18 @@ public class MatrixClass {
 
     public MatrixClass multiplyingM(int r, int c, int[][] m) throws Exception { //inmultim cu matrice
         MatrixClass result = new MatrixClass(c, row);
-        m = new int[r][c];
         if (c != row) {
             throw new Exception();
         } else {
             for (int i = 0; i < result.column; i++) {
                 for (int j = 0; j < result.row; j++) {
                     for (int k = 0; k < matrix.length; k++) {
-                        result.matrix[i][j] += matrix[i][k] * m[k][j];
+                        result.matrix[i][j] += (matrix[i][k] * m[k][j]);
                     }
                 }
             }
             return result;
         }
-        
+
     }
 }
