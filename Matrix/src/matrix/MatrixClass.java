@@ -66,15 +66,31 @@ public class MatrixClass {
         matrix = new int[row][column];
 
     }
+    public MatrixClass(int[][] matrix1) {
+        if (matrix1.length == 0) {
+            throw new IllegalArgumentException("Nu poate fi creata o matrice goala");
+        }
+        /*
+         * verificm daca fiecare linie a matricei are acelasi numar de elemente
+         */
+        int nrC = matrix1[0].length;
+        for (int i = 1; i < matrix1.length; i++) {
+            if (matrix1.length != nrC) {
+                throw new IllegalArgumentException("Incorrect!");
+            }
+            nrC = matrix1[i].length;
+        }
+        this.matrix = matrix1;
+        this.row = matrix1.length;
+        this.column = matrix1[0].length;
+    }
 
     public MatrixClass(MatrixClass M, int rowM, int columnM) { //costructor de clonare
         this.matrix = M.matrix;
         this.row = M.row;
         this.column = M.column;
         for (int i = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j < this.matrix[0].length; j++) {
-              this.matrix[i][j] = M.matrix[i][j];
-            }
+            System.arraycopy(M.matrix[i], 0, this.matrix[i], 0, this.matrix[i].length);
         }
     }
 
@@ -91,7 +107,7 @@ public class MatrixClass {
     public MatrixClass addingNo(int x) { //adunam numar
         MatrixClass result = new MatrixClass(row, column);
         for (int i = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j < this.matrix[0].length; j++) {
+            for (int j = 0; j < this.matrix[i].length; j++) {
                 result.matrix[i][j] = matrix[i][j] + x;
             }
         }
@@ -101,20 +117,20 @@ public class MatrixClass {
     public MatrixClass decreasingNo(int x) { //scadem numar
         MatrixClass result = new MatrixClass(row, column);
         for (int i = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j < this.matrix[0].length; j++) {
-               result.matrix[i][j] = matrix[i][j] - x;
+            for (int j = 0; j < this.matrix[i].length; j++) {
+                result.matrix[i][j] = matrix[i][j] - x;
             }
         }
         return result;
     }
 
     public MatrixClass addingM(int r, int c, int[][] m) throws Exception { //adaugam matrice
-        MatrixClass result = new MatrixClass(row, column);      
+        MatrixClass result = new MatrixClass(row, column);
         if (r != row && c != column) {
             throw new Exception();
         } else {
             for (int i = 0; i < this.matrix.length; i++) {
-                for (int j = 0; j < this.matrix[0].length; j++) {
+                for (int j = 0; j < this.matrix[i].length; j++) {
                     result.matrix[i][j] = matrix[i][j] + m[i][j];
                 }
             }
@@ -123,12 +139,12 @@ public class MatrixClass {
     }
 
     public MatrixClass decreasingM(int r, int c, int[][] m) throws Exception { //scadem matrice
-        MatrixClass result = new MatrixClass(row, column); 
+        MatrixClass result = new MatrixClass(row, column);
         if (r != row && c != column) {
             throw new Exception();
         } else {
             for (int i = 0; i < this.matrix.length; i++) {
-                for (int j = 0; j < this.matrix[0].length; j++) {
+                for (int j = 0; j < this.matrix[i].length; j++) {
                     result.matrix[i][j] = matrix[i][j] - m[i][j];
                 }
             }
@@ -136,10 +152,10 @@ public class MatrixClass {
         return result;
     }
 
-    public MatrixClass identity() { //matricea identica
-        for (int i = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j < this.matrix[0].length; j++) {
-                this.matrix[i][j] = 1;
+    public MatrixClass identity() {
+        for (int[] matrix1 : this.matrix) {
+            for (int j = 0; j < this.matrix.length; j++) {
+                matrix1[j] = 1;
             }
         }
         return this;
@@ -148,7 +164,7 @@ public class MatrixClass {
     public MatrixClass multiplyingNo(int x) throws Exception { //inmultim cu numar
         MatrixClass result = new MatrixClass(row, column);
         for (int i = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j < this.matrix[0].length; j++) {
+            for (int j = 0; j < this.matrix[i].length; j++) {
                 result.matrix[i][j] = matrix[i][j] * x;
             }
         }
@@ -182,9 +198,43 @@ public class MatrixClass {
         return result;
     }
 
-    public int determinat() {
+    public int determinant(int[][] m) {
         int result = 0;
+        if (this.matrix.length == 2) {
+            result = this.matrix[0][0] * this.matrix[1][1] - this.matrix[1][0] * this.matrix[0][1];
         
         return result;
+        }
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                MatrixClass temporar = new MatrixClass(matrix);
+                result += Math.pow(-1, i + j) * determinant(temporar.matriceFara(i, j));
+            }
+        }
+        return result;
     }
+
+    public int[][] matriceFara(int r, int c) { //returnam matricea fara un rand si o coloana specificata
+        int[][] temporar = new int[matrix.length - 1][matrix[0].length - 1];
+        int k = 0;
+        int l = 0;
+
+        for (int i = 0; i < matrix.length; i++) {
+            if (r != i) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    if (c != j) {
+                        temporar[k][l] = matrix[i][j];
+                        l++;
+                    }
+                }
+                k++;
+                l = 0;
+            }
+        }
+
+        return temporar;
+    }
+    
+    
+
 }
