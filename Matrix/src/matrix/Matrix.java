@@ -5,7 +5,6 @@
  */
 package matrix;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -43,6 +42,15 @@ public class Matrix {
 
         MatrixClass M = matrix.multiplyingM(x, y, d);
         M.display();
+
+        MatrixClass N = matrix.transpose();
+        N.display();
+
+        MatrixClass O = matrix.multiplyingNo(7);
+        O.display();
+        
+        MatrixClass P = matrix.addingM(x, y, d);
+        P.display();
         
 
     }

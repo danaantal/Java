@@ -67,8 +67,15 @@ public class MatrixClass {
 
     }
 
-    public MatrixClass(MatrixClass M) {
-        M = this;
+    public MatrixClass(MatrixClass M, int rowM, int columnM) { //costructor de clonare
+        this.matrix = M.matrix;
+        this.row = M.row;
+        this.column = M.column;
+        for (int i = 0; i < this.matrix.length; i++) {
+            for (int j = 0; j < this.matrix[0].length; j++) {
+              this.matrix[i][j] = M.matrix[i][j];
+            }
+        }
     }
 
     public void display() {
@@ -76,74 +83,76 @@ public class MatrixClass {
             System.out.println("");
             for (int j = 0; j < column; j++) {
                 System.out.print(matrix[i][j] + " ");
-            }       
+            }
         }
         System.out.println();
     }
 
-    public int[][] addingNo(int x) { //adunam numar
+    public MatrixClass addingNo(int x) { //adunam numar
+        MatrixClass result = new MatrixClass(row, column);
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix[0].length; j++) {
-                matrix[i][j] += x;
+                result.matrix[i][j] = matrix[i][j] + x;
             }
         }
-        return matrix;
+        return result;
     }
 
-    public int[][] decreasingNo(int x) { //scadem numar
+    public MatrixClass decreasingNo(int x) { //scadem numar
+        MatrixClass result = new MatrixClass(row, column);
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix[0].length; j++) {
-                matrix[i][j] -= x;
+               result.matrix[i][j] = matrix[i][j] - x;
             }
         }
-        return matrix;
+        return result;
     }
 
-    public int[][] addingM(int r, int c, int[][] m) throws Exception { //adaugam matrice
-        m = new int[r][c];
+    public MatrixClass addingM(int r, int c, int[][] m) throws Exception { //adaugam matrice
+        MatrixClass result = new MatrixClass(row, column);      
         if (r != row && c != column) {
             throw new Exception();
         } else {
             for (int i = 0; i < this.matrix.length; i++) {
                 for (int j = 0; j < this.matrix[0].length; j++) {
-                    matrix[i][j] += m[i][j];
+                    result.matrix[i][j] = matrix[i][j] + m[i][j];
                 }
             }
         }
-        return matrix;
+        return result;
     }
 
-    public int[][] decreasingM(int r, int c, int[][] m) throws Exception { //scadem matrice
-        m = new int[r][c];
+    public MatrixClass decreasingM(int r, int c, int[][] m) throws Exception { //scadem matrice
+        MatrixClass result = new MatrixClass(row, column); 
         if (r != row && c != column) {
             throw new Exception();
         } else {
             for (int i = 0; i < this.matrix.length; i++) {
                 for (int j = 0; j < this.matrix[0].length; j++) {
-                    matrix[i][j] -= m[i][j];
+                    result.matrix[i][j] = matrix[i][j] - m[i][j];
                 }
             }
         }
-        return matrix;
+        return result;
     }
 
-    public int[][] identity() { //matricea identica
+    public MatrixClass identity() { //matricea identica
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix[0].length; j++) {
-                matrix[i][j] = 1;
+                this.matrix[i][j] = 1;
             }
         }
-        return matrix;
+        return this;
     }
 
-    public int[][] multiplyingNo(int x) throws Exception { //inmultim cu numar
-
+    public MatrixClass multiplyingNo(int x) throws Exception { //inmultim cu numar
+        MatrixClass result = new MatrixClass(row, column);
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix[0].length; j++) {
-                matrix[i][j] *= x;
+                result.matrix[i][j] = matrix[i][j] * x;
             }
         }
-        return matrix;
+        return result;
     }
 
     public MatrixClass multiplyingM(int r, int c, int[][] m) throws Exception { //inmultim cu matrice
@@ -161,5 +170,21 @@ public class MatrixClass {
             return result;
         }
 
+    }
+
+    public MatrixClass transpose() { //matricea transpusa
+        MatrixClass result = new MatrixClass(column, row);
+        for (int i = 0; i < result.row; i++) {
+            for (int j = 0; j < result.column; j++) {
+                result.matrix[i][j] = matrix[j][i];
+            }
+        }
+        return result;
+    }
+
+    public int determinat() {
+        int result = 0;
+        
+        return result;
     }
 }
