@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author Danna
  */
-public class MatrixClass {
+public class MatrixClass implements IMatrix{
 
     private int row, column, r;
     private int[] vector;
@@ -87,7 +87,7 @@ public class MatrixClass {
         this.column = matrix1[0].length;
     }
 
-    public MatrixClass(MatrixClass M, int rowM, int columnM) { //costructor de clonare
+    public MatrixClass(MatrixClass M) { //costructor de clonare
         this.matrix = M.matrix;
         this.row = M.row;
         this.column = M.column;

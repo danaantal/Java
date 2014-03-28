@@ -31,7 +31,7 @@ public class Matrix {
         column = scan.nextInt();
         int[][] m = new int[row][column];
 
-        MatrixClass matrix = new MatrixClass(row, column);
+        IMatrix matrix = new MatrixClass(row, column);
         matrix.setColumn(column);//setam coloana
         matrix.setRow(row); //setam linie
         for (int[] m1 : m) {
@@ -43,7 +43,7 @@ public class Matrix {
         matrix.setMatrix(m);
         matrix.display();
         System.out.println("Matrice clona: ");
-        MatrixClass O = new MatrixClass(matrix, matrix.getRow(), matrix.getColumn());
+        IMatrix O = new MatrixClass((MatrixClass) matrix);
         O.display();
         
         System.out.print("Adaugam matrice: ");
