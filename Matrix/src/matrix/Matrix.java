@@ -23,6 +23,8 @@ public class Matrix {
     public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
         int row, column;
         int[][] d = {{1, 2, 3, 2, 2}, {4, 5, 6, 5, 6}, {9, 1, 3, 4, 4}, {3, 3, 3, 3, 3}, {1, 5, 6, 7, 4}};
+        int[][] e = {{1, 2}, {2, 2}};
+        int[][] f = {{1}};
         int x = 5, y = 5;
         Scanner scan = new Scanner(new FileReader("matrix.txt"));
         row = scan.nextInt();
@@ -37,42 +39,43 @@ public class Matrix {
                 m1[j] = scan.nextInt();
             }
         }
+        System.out.print("Matricea initiala: ");
         matrix.setMatrix(m);
         matrix.display();
-        
-        System.out.println(matrix.determinant(m));
-        
-        MatrixClass H = matrix.addingM(x, y, d);
-        H.display();
-        
-        MatrixClass I = matrix.addingNo(x);
-        I.display();
-        
-        MatrixClass J = matrix.decreasingM(x, y, d);
-        J.display();
-        
-        MatrixClass K = matrix.decreasingNo(x);
-        K.display();
-        
-        MatrixClass L = matrix.multiplyingNo(x);
-        L.display();
-
-        MatrixClass M = matrix.multiplyingM(x, y, d);
-        M.display();
-
-        MatrixClass N = matrix.transpose();
-        N.display();
-
-        MatrixClass O = matrix.multiplyingNo(y);
+        System.out.println("Matrice clona: ");
+        MatrixClass O = new MatrixClass(matrix, matrix.getRow(), matrix.getColumn());
         O.display();
         
+        System.out.print("Adaugam matrice: ");
+        MatrixClass H = matrix.addingM(x, y, d);
+        H.display();
+        System.out.print("Adaugam numar: ");
+        MatrixClass I = matrix.addingNo(x);
+        I.display();
+        System.out.print("Scadem matrice: ");
+        MatrixClass J = matrix.decreasingM(x, y, d);
+        J.display();
+        System.out.print("Scadem numar: ");
+        MatrixClass K = matrix.decreasingNo(x);
+        K.display();
+        System.out.print("Multiplicam cu numar: ");
+        MatrixClass L = matrix.multiplyingNo(x);
+        L.display();
+        System.out.print("Multiplicam cu matrice: ");
+        MatrixClass M = matrix.multiplyingM(x, y, d);
+        M.display();
+        System.out.print("Matricea transpusa: ");
+        MatrixClass N = matrix.transpose();
+        N.display();
+        System.out.print("Adaugam matrice: ");
         MatrixClass P = matrix.addingM(x, y, d);
         P.display();
-        
+        System.out.print("Identitate: ");
         MatrixClass Q = matrix.identity();
         Q.display();
-        
-        
+       
+        MatrixClass matrix1 = new MatrixClass(d);
+        System.out.println("Determinantul matricii este:  " + matrix1.determinant(d));
 
     }
 }
