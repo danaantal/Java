@@ -14,10 +14,6 @@ public interface IMatrix {
     public void setRow(int row);
     public int getColumn();
     public void setColumn(int column);
-    public int getR();
-    public void setR(int r);
-    public int[] getVector();
-    public void setVector(int[] vector);
     public int[][] getMatrix();
     public void setMatrix(int[][] matrix);
     

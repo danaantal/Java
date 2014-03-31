@@ -17,42 +17,52 @@ public class MatrixClass implements IMatrix{
     private int[] vector;
     private int[][] matrix;
 
+    @Override
     public int getRow() {
         return row;
     }
 
+    @Override
     public void setRow(int row) {
         this.row = row;
     }
 
+    @Override
     public int getColumn() {
         return column;
     }
 
+    @Override
     public void setColumn(int column) {
         this.column = column;
     }
 
+  
     public int getR() {
         return r;
     }
 
+    
     public void setR(int r) {
         this.r = r;
     }
 
+ 
     public int[] getVector() {
         return vector;
     }
 
+  
     public void setVector(int[] vector) {
         this.vector = vector;
     }
 
+    @Override
     public int[][] getMatrix() {
         return matrix;
     }
 
+    @Override
     public void setMatrix(int[][] matrix) {
         this.matrix = matrix;
     }
@@ -96,6 +106,7 @@ public class MatrixClass implements IMatrix{
         }
     }
 
+    @Override
     public void display() {
         for (int i = 0; i < row; i++) {
             System.out.println("");
@@ -106,6 +117,7 @@ public class MatrixClass implements IMatrix{
         System.out.println();
     }
 
+    @Override
     public MatrixClass addingNo(int x) { //adunam numar
         MatrixClass result = new MatrixClass(row, column);
         for (int i = 0; i < this.matrix.length; i++) {
@@ -116,6 +128,7 @@ public class MatrixClass implements IMatrix{
         return result;
     }
 
+    @Override
     public MatrixClass decreasingNo(int x) { //scadem numar
         MatrixClass result = new MatrixClass(row, column);
         for (int i = 0; i < this.matrix.length; i++) {
@@ -265,13 +278,8 @@ public class MatrixClass implements IMatrix{
         if (!Arrays.equals(this.vector, other.vector)) {
             return false;
         }
-        if (!Arrays.deepEquals(this.matrix, other.matrix)) {
-            return false;
-        }
-        return true;
+        return Arrays.deepEquals(this.matrix, other.matrix);
     }
-
-    
 
     @Override
     public String toString() {
