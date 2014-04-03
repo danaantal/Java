@@ -46,8 +46,7 @@ public class Matrix {
         IMatrix O = new MatrixClass((MatrixClass) matrix);
         O.display();
         System.out.println("Matrice rara 0: ");
-        IMatrix s =  new SparseMatrix(5,5);
-        s.display();
+        
         
         System.out.print("Adaugam matrice: ");
         MatrixClass H = matrix.addingM(x, y, d);

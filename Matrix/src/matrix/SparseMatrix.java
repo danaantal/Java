@@ -8,56 +8,44 @@ package matrix;
  *
  * @author dana.antal
  */
-public class SparseMatrix implements IMatrix {
-    private int row, column;  
-    private int[][] matrix;
+public abstract class SparseMatrix implements IMatrix {
+    private int[] diagonal;
+    private int[] column;  
+    private int[] nonzero;
 
-    @Override
-    public int getRow() {
-        return row;
+    public int[] getDigonal() {
+        return diagonal;
     }
 
-    @Override
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    @Override
-    public int getColumn() {
+    public int[] getColumn() {
         return column;
     }
 
-    @Override
-    public void setColumn(int column) {
+    public int[] getNonzero() {
+        return nonzero;
+    }
+
+    public void setDigonal(int[] diagonal) {
+        this.diagonal = diagonal;
+    }
+
+    public void setColumn(int[] column) {
         this.column = column;
     }
 
-    @Override
-    public int[][] getMatrix() {
-        return matrix;
+    public void setNonzero(int[] nonzero) {
+        this.nonzero = nonzero;
     }
 
-    /**
-     *
-     * @param matrix
-     */
-    @Override
-    public void setMatrix(int[][] matrix) {
-        this.matrix = matrix;
-    }
 
-    public SparseMatrix(int r, int c) {
-        this.row = r;
+    public SparseMatrix(int[] r, int[] c, int[] n) {
+        this.diagonal = r;
         this.column= c;
-        matrix = new int[row][column];
-        for(int i=0;i<this.matrix.length;i++){
-            for(int j=0;j<this.matrix[i].length;j++){
-                this.matrix[i][j] = 0;
-            }
+        this.nonzero = n;       
         }
-    }  
+    
 
-    @Override
+    /*@Override
     public void display() {
         for (int i = 0; i < row; i++) {
             System.out.println("");
@@ -66,7 +54,7 @@ public class SparseMatrix implements IMatrix {
             }
         }
         System.out.println();
-    }
+    }*/
 
     @Override
     public MatrixClass addingNo(int x) {

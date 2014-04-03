@@ -11,13 +11,12 @@ import java.util.Arrays;
  *
  * @author Danna
  */
-public class MatrixClass implements IMatrix{
+public class MatrixClass implements IMatrix {
 
     private int row, column, r;
     private int[] vector;
     private int[][] matrix;
 
-    @Override
     public int getRow() {
         return row;
     }
@@ -27,7 +26,6 @@ public class MatrixClass implements IMatrix{
         this.row = row;
     }
 
-    @Override
     public int getColumn() {
         return column;
     }
@@ -37,27 +35,22 @@ public class MatrixClass implements IMatrix{
         this.column = column;
     }
 
-  
     public int getR() {
         return r;
     }
 
-    
     public void setR(int r) {
         this.r = r;
     }
 
- 
     public int[] getVector() {
         return vector;
     }
 
-  
     public void setVector(int[] vector) {
         this.vector = vector;
     }
 
-    @Override
     public int[][] getMatrix() {
         return matrix;
     }
@@ -78,6 +71,7 @@ public class MatrixClass implements IMatrix{
         matrix = new int[row][column];
 
     }
+
     public MatrixClass(int[][] matrix1) {
         if (matrix1.length == 0) {
             throw new IllegalArgumentException("Nu poate fi creata o matrice goala");
@@ -213,25 +207,24 @@ public class MatrixClass implements IMatrix{
         return result;
     }
 
-    
-    public int determinant(int[][] m){
+    public int determinant(int[][] m) {
         int result = 0;
-        
-        if(m.length == 0){
+
+        if (m.length == 0) {
             throw new IllegalArgumentException("Matrice vida");
         }
-        
-        if(m.length == 1){
+
+        if (m.length == 1) {
             result = m[0][0];
-            return result; 
-            
+            return result;
+
         }
-        
-        if(m.length == 2){
+
+        if (m.length == 2) {
             result = m[0][0] * m[1][1] - m[0][1] * m[1][0];
             return result;
         }
-        
+
         for (int i = 0; i < m.length; i++) {
             int temp[][] = new int[m.length - 1][m[0].length - 1];
 
@@ -253,7 +246,7 @@ public class MatrixClass implements IMatrix{
         hash = 71 * hash + this.r;
         hash = 71 * hash + Arrays.deepHashCode(this.matrix);
         hash = 71 * hash + this.vector.hashCode();
-        
+
         return hash;
     }
 
@@ -285,6 +278,4 @@ public class MatrixClass implements IMatrix{
     public String toString() {
         return "MatrixClass{" + "row=" + row + ", column=" + column + ", matrix=" + matrix + '}';
     }
-    
-    
 }
