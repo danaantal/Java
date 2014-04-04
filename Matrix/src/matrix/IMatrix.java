@@ -28,7 +28,7 @@ public interface IMatrix {
 
     public MatrixClass transpose();
 
-    public int determinant(int[][] m);
+    public int determinant();
 
     public void setColumn(int column);
 

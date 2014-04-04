@@ -97,7 +97,7 @@ public abstract class SparseMatrix implements IMatrix {
     }
 
     @Override
-    public int determinant(int[][] m) {
+    public int determinant() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -46,8 +46,8 @@ public class Matrix {
         IMatrix O = new MatrixClass((MatrixClass) matrix);
         O.display();
         System.out.println("Matrice rara 0: ");
-        
-        
+
+
         System.out.print("Adaugam matrice: ");
         MatrixClass H = matrix.addingM(x, y, d);
         H.display();
@@ -75,9 +75,25 @@ public class Matrix {
         System.out.print("Identitate: ");
         MatrixClass Q = matrix.identity();
         Q.display();
-       
+
         MatrixClass matrix1 = new MatrixClass(d);
-        System.out.println("Determinantul matricii este:  " + matrix1.determinant(d));
+        for (int i = 0; i < row; i++) {
+            System.out.println("");
+            for (int j = 0; j < column; j++) {
+                System.out.print(d[i][j] + " ");
+            }
+        }
+        System.out.println();
+
+        System.out.println("Determinantul matricii este:  " + matrix1.determinant());
+
+        for (int i = 0; i < row; i++) {
+            System.out.println("");
+            for (int j = 0; j < column; j++) {
+                System.out.print(d[i][j] + " ");
+            }
+        }
+        System.out.println();
 
     }
 }

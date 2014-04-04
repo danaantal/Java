@@ -206,8 +206,11 @@ public class MatrixClass implements IMatrix {
         }
         return result;
     }
-
-    public int determinant(int[][] m) {
+    @Override
+    public int determinant(){
+        return determinant(matrix);
+    }
+    private int determinant(int[][] m) {
         int result = 0;
 
         if (m.length == 0) {
