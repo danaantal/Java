@@ -6,3 +6,7 @@
 *.ear
 /Matrix/nbproject/private/
 /Matrix/build/
+/Super/nbproject/private/
+/Super/build/
+/AES128/nbproject/private/
+/AES128/build/
