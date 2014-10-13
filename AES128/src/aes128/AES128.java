@@ -70,7 +70,24 @@ public class AES128 {
 
         }
 
-        Matrix deCryptat = new Matrix(fromfile, fromkey);                      
+        Matrix deCryptat = new Matrix(fromfile, fromkey);
+        deCryptat.subBytes();
+        for (int i = 0; i < deCryptat.matrix.length; i++) {
+            System.out.println(" ");
+            for (int j = 0; j < deCryptat.matrix[0].length; j++) {
+                System.out.print(" ");
+                System.out.print(deCryptat.matrix[i][j]);
+            }
+        }
+        System.out.println("");
+        deCryptat.shiftRows();
+        for (int i = 0; i < deCryptat.matrix.length; i++) {
+            System.out.println(" ");
+            for (int j = 0; j < deCryptat.matrix[0].length; j++) {
+                System.out.print(" ");
+                System.out.print(deCryptat.matrix[i][j]);
+            }
+        }
 
         Scanner in = new Scanner(System.in);
         // print menu
@@ -91,7 +108,7 @@ public class AES128 {
                 case "2":
                     System.out.println("You've chosen to decrypt cryptotext...");
                     // do something...
-                    break;               
+                    break;
                 case "0":
                     quit = true;
                     break;

@@ -82,14 +82,15 @@ public class Matrix {
     private final byte[] RCon = {(byte) 0x00, (byte) 0x01, (byte) 0x02, (byte) 0x04,
         (byte) 0x08, (byte) 0x10, (byte) 0x20, (byte) 0x40,
         (byte) 0x80, (byte) 0x1b, (byte) 0x36};
-    
+
     //the irreducieble polynomial in AES  
     //x^8+x^4+x^3+x+1  
-    final byte mx=0x1B; 
+    final byte mx = 0x1B;
 
     private int r, c; //rows, columns
     public byte[][] matrix;
     private byte[][] key;
+    private byte[][] word;
 
     public Matrix(byte[] a, byte[] b) {//constructorul matricii si al cheii
         int k = 0, x = 0;
@@ -114,9 +115,31 @@ public class Matrix {
         }
         return character;
     }
-    
-    private void expandKey(){
-        
+
+    private void keySchedule() {
+        int binarykeysize = key[0].length * 4;
+        byte[] temp = new byte[4];
+        for (int i = 4; i < binarykeysize; i++) {
+            for (int j = 0; j < 4; j++) {
+                temp[j] = word[i - 1][j];
+            }
+            
+            if (i % 4 == 0) {//begin if condition for every 4th column wich is "special
+                byte tempbyte = temp[3];//first element in the column becomes the last element
+                temp[3] = temp[2];
+                temp[2] = temp[1];
+                temp[1] = temp[0];
+                temp[0] = tempbyte;
+                
+                for(int j=0;j<4;j++){//SBox on each column element
+                    temp[j]=SBox[temp[j]];
+                }
+                temp[3] = (byte) (temp[3] ^ RCon[i/4]);//rcon XOR operation
+            }//end if
+            for(int j=0;j<4;j++){
+                word[i][j]= (byte) (temp[j] ^ word[i-4][j]);//XOR operation with the first column of the word
+            }
+        }//enf for of i
     }
 
     private void addRoundKey(int round) {
@@ -139,7 +162,7 @@ public class Matrix {
         }
     }
 
-    private void shiftRows() {
+    public void shiftRows() {
         //row 0 remains unchanged
         byte tmp;
         //row 1 - element 0 becomes element 3
