@@ -83,6 +83,16 @@ public class Matrix {
         (byte) 0x08, (byte) 0x10, (byte) 0x20, (byte) 0x40,
         (byte) 0x80, (byte) 0x1b, (byte) 0x36};
 
+    private final byte[][] mixcolumnMatrix = {{(byte) 0x02, (byte) 0x03, (byte) 0x01, (byte) 0x01},
+    {(byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x01},
+    {(byte) 0x01, (byte) 0x01, (byte) 0x02, (byte) 0x03},
+    {(byte) 0x03, (byte) 0x01, (byte) 0x01, (byte) 0x02}};
+    
+    private final byte[][] invMixcolumnMatrix = {{(byte) 0x0e, (byte) 0x0b, (byte) 0x0d, (byte) 0x09},
+    {(byte) 0x09, (byte) 0x0e, (byte) 0x0b, (byte) 0x0d},
+    {(byte) 0x0d, (byte) 0x09, (byte) 0x0e, (byte) 0x0b},
+    {(byte) 0x0b, (byte) 0x0d, (byte) 0x09, (byte) 0x0e}};
+
     //the irreducieble polynomial in AES  
     //x^8+x^4+x^3+x+1  
     final byte mx = 0x1B;
@@ -123,27 +133,31 @@ public class Matrix {
             for (int j = 0; j < 4; j++) {
                 temp[j] = word[i - 1][j];
             }
-            
+
             if (i % 4 == 0) {//begin if condition for every 4th column wich is "special
                 byte tempbyte = temp[3];//first element in the column becomes the last element
                 temp[3] = temp[2];
                 temp[2] = temp[1];
                 temp[1] = temp[0];
                 temp[0] = tempbyte;
-                
-                for(int j=0;j<4;j++){//SBox on each column element
-                    temp[j]=SBox[temp[j]];
+
+                for (int j = 0; j < 4; j++) {//SBox on each column element
+                    temp[j] = SBox[temp[j]];
                 }
-                temp[3] = (byte) (temp[3] ^ RCon[i/4]);//rcon XOR operation
+                temp[3] = (byte) (temp[3] ^ RCon[i / 4]);//rcon XOR operation
             }//end if
-            for(int j=0;j<4;j++){
-                word[i][j]= (byte) (temp[j] ^ word[i-4][j]);//XOR operation with the first column of the word
+            for (int j = 0; j < 4; j++) {
+                word[i][j] = (byte) (temp[j] ^ word[i - 4][j]);//XOR operation with the first column of the word
             }
         }//enf for of i
     }
 
     private void addRoundKey(int round) {
-
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[i][j] ^= word[i][j];
+            }
+        }
     }
 
     public void subBytes() {
@@ -209,12 +223,30 @@ public class Matrix {
         matrix[1][0] = tmp;
     }
 
-    private void mixColumns() {
-
+    private byte[][] multiplyMatrix(byte[][] m) {
+        int row = matrix.length;
+        int column = matrix[0].length;
+        byte[][] result = new byte[this.r][this.c];
+        if (this.c != row) {
+            throw new IllegalArgumentException("The number of columns from the first matrix should be equal "
+                    + "with the number of rows from the second matrix");
+        }
+        for (int i = 0; i < this.r; i++) {
+            for (int j = 0; j < column; j++) {
+                for (int k = 0; k < this.c; k++) {
+                    result[i][j] += this.matrix[i][k] * matrix[k][j];
+                }
+            }
+        }
+        return result;
     }
 
-    private void invMixColumns() {
+    private void mixColumns() {
+        matrix = multiplyMatrix(mixcolumnMatrix);
+    }
 
+    private void invMixColumns() {//dont forget about keyschedule call
+        matrix = multiplyMatrix(invMixcolumnMatrix);
     }
 
     public byte[][] crypt() {
