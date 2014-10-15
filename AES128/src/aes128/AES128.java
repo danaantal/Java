@@ -70,24 +70,21 @@ public class AES128 {
 
         }
 
-        Matrix deCryptat = new Matrix(fromfile, fromkey);
-        deCryptat.subBytes();
-        for (int i = 0; i < deCryptat.matrix.length; i++) {
-            System.out.println(" ");
-            for (int j = 0; j < deCryptat.matrix[0].length; j++) {
-                System.out.print(" ");
-                System.out.print(deCryptat.matrix[i][j]);
+        Matrix cryptIt = new Matrix(fromkey);
+        for(int i=0;i<cryptIt.matrix.length;i++){
+            for(int j=0;j<cryptIt.matrix[0].length;j++){
+               cryptIt.matrix[i][j] = fromfile[4*i+j]; 
             }
         }
-        System.out.println("");
-        deCryptat.shiftRows();
-        for (int i = 0; i < deCryptat.matrix.length; i++) {
-            System.out.println(" ");
-            for (int j = 0; j < deCryptat.matrix[0].length; j++) {
-                System.out.print(" ");
-                System.out.print(deCryptat.matrix[i][j]);
-            }
-        }
+        
+        /*cryptIt.createWord();
+        
+         for(int i=0;i<cryptIt.matrix.length;i++){
+         for(int j=0;j<cryptIt.matrix[0].length;j++){
+         System.out.println(cryptIt.matrix[i][j]);
+         }
+         }*/
+        
 
         Scanner in = new Scanner(System.in);
         // print menu
@@ -103,11 +100,21 @@ public class AES128 {
             switch (menuItem) {
                 case "1":
                     System.out.println("You've chosen to crypt plaintext...");
-                    // do something...
+                    cryptIt.crypt(fromfile);
+                    for (int i = 0; i < cryptIt.matrix.length; i++) {
+                        for (int j = 0; j < cryptIt.matrix[0].length; j++) {
+                            System.out.println(cryptIt.toChar());
+                        }
+                    }
                     break;
                 case "2":
                     System.out.println("You've chosen to decrypt cryptotext...");
-                    // do something...
+                    cryptIt.decrypt();
+                    for (int i = 0; i < cryptIt.matrix.length; i++) {
+                        for (int j = 0; j < cryptIt.matrix[0].length; j++) {
+                            System.out.println(cryptIt.toChar());
+                        }
+                    }
                     break;
                 case "0":
                     quit = true;

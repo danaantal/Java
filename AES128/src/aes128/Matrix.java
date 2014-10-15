@@ -83,36 +83,24 @@ public class Matrix {
         (byte) 0x08, (byte) 0x10, (byte) 0x20, (byte) 0x40,
         (byte) 0x80, (byte) 0x1b, (byte) 0x36};
 
-    private final byte[][] mixcolumnMatrix = {{(byte) 0x02, (byte) 0x03, (byte) 0x01, (byte) 0x01},
-    {(byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x01},
-    {(byte) 0x01, (byte) 0x01, (byte) 0x02, (byte) 0x03},
-    {(byte) 0x03, (byte) 0x01, (byte) 0x01, (byte) 0x02}};
-    
-    private final byte[][] invMixcolumnMatrix = {{(byte) 0x0e, (byte) 0x0b, (byte) 0x0d, (byte) 0x09},
-    {(byte) 0x09, (byte) 0x0e, (byte) 0x0b, (byte) 0x0d},
-    {(byte) 0x0d, (byte) 0x09, (byte) 0x0e, (byte) 0x0b},
-    {(byte) 0x0b, (byte) 0x0d, (byte) 0x09, (byte) 0x0e}};
-
-    //the irreducieble polynomial in AES  
     //x^8+x^4+x^3+x+1  
-    final byte mx = 0x1B;
+    final byte polynom = 0x1B;
 
     private int r, c; //rows, columns
     public byte[][] matrix;
-    private byte[][] key;
+    private byte[] key;
     private byte[][] word;
 
-    public Matrix(byte[] a, byte[] b) {//constructorul matricii si al cheii
-        int k = 0, x = 0;
-        this.matrix = new byte[4][4];
-        this.key = new byte[4][4];
-
+    public Matrix(byte[] b) {//constructorul matricii si al cheii
+        word = new byte[44][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                this.matrix[i][j] = b[k++];
-                this.key[i][j] = (byte) a[x++];
+                word[i][j] = b[4 * i + (3 - j)];               
             }
         }
+        keySchedule();
+
+        matrix = new byte[4][4];
     }
 
     public String toChar() {
@@ -127,9 +115,8 @@ public class Matrix {
     }
 
     private void keySchedule() {
-        int binarykeysize = key[0].length * 4;
         byte[] temp = new byte[4];
-        for (int i = 4; i < binarykeysize; i++) {
+        for (int i = 4; i < 44; i++) {
             for (int j = 0; j < 4; j++) {
                 temp[j] = word[i - 1][j];
             }
@@ -142,35 +129,36 @@ public class Matrix {
                 temp[0] = tempbyte;
 
                 for (int j = 0; j < 4; j++) {//SBox on each column element
-                    temp[j] = SBox[temp[j]];
+                    temp[j] = SBox[temp[j] & 0xff];
                 }
-                temp[3] = (byte) (temp[3] ^ RCon[i / 4]);//rcon XOR operation
+                temp[3]^= RCon[i / 4];//rcon XOR operation
             }//end if
             for (int j = 0; j < 4; j++) {
                 word[i][j] = (byte) (temp[j] ^ word[i - 4][j]);//XOR operation with the first column of the word
             }
-        }//enf for of i
+        }//end for of i
     }
 
     private void addRoundKey(int round) {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                matrix[i][j] ^= word[i][j];
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                matrix[r][c]^=word[4*round+c][3-r];
+                System.out.println("addrrrr");
             }
         }
     }
 
     public void subBytes() {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
                 matrix[i][j] = SBox[matrix[i][j] & 0xFF];
             }
         }
     }
 
     private void invSubBytes() {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
                 matrix[i][j] = invSBox[matrix[i][j] & 0xFF];
             }
         }
@@ -205,7 +193,7 @@ public class Matrix {
         //row 3 - element 3 becomes element 0, element 2 becomes element 1 and element 1 becomes element 2
         tmp = matrix[3][0];
         for (int col = 0; col < 3; col++) {
-            matrix[3][col] = matrix[3][col - 1];
+            matrix[3][col] = matrix[3][col + 1];
         }
         matrix[3][3] = tmp;
         //row 2 - element 2 becomes element 0 and element 3 becomes element 1
@@ -223,33 +211,105 @@ public class Matrix {
         matrix[1][0] = tmp;
     }
 
-    private byte[][] multiplyMatrix(byte[][] m) {
-        int row = matrix.length;
-        int column = matrix[0].length;
-        byte[][] result = new byte[this.r][this.c];
-        if (this.c != row) {
-            throw new IllegalArgumentException("The number of columns from the first matrix should be equal "
-                    + "with the number of rows from the second matrix");
+    private byte multiplyX(byte inputByte) {//daca primul bit este 1: shiftare la stanga cu o pozitie, 
+        //se pierde primul bit, se adauga 0 la final (10010011 devine 00100110) 
+        //si se face XOR cu sirul de biti 00011011
+        byte temp;
+        if ((inputByte & 0x80) == 0) {
+            temp = (byte) (inputByte << 1); //daca primul bit este 0 se face doar shiftare, fara operatia de XOR;  
+        } else {
+            temp = (byte) ((inputByte << 1) ^ polynom);
         }
-        for (int i = 0; i < this.r; i++) {
-            for (int j = 0; j < column; j++) {
-                for (int k = 0; k < this.c; k++) {
-                    result[i][j] += this.matrix[i][k] * matrix[k][j];
-                }
-            }
-        }
-        return result;
+        return temp;
     }
 
     private void mixColumns() {
-        matrix = multiplyMatrix(mixcolumnMatrix);
+        /*private final byte[][] mixcolumnMatrix = 
+         {{(byte) 0x02, (byte) 0x03, (byte) 0x01, (byte) 0x01},
+         {(byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x01},
+         {(byte) 0x01, (byte) 0x01, (byte) 0x02, (byte) 0x03},
+         {(byte) 0x03, (byte) 0x01, (byte) 0x01, (byte) 0x02}};*/
+        byte[][] temp = new byte[r][c];
+        for (int j = 0; j < c; j++) {
+            temp[0][j] = (byte) (multiplyX(temp[0][j]) //x
+                    ^ multiplyX(temp[1][j]) ^ temp[1][j] //x+1
+                    ^ temp[2][j] // 1
+                    ^ temp[3][j]); // 1
+
+            temp[1][j] = (byte) (multiplyX(temp[1][j]) //x
+                    ^ multiplyX(temp[2][j]) ^ temp[2][j] //x+1
+                    ^ temp[3][j] // 1
+                    ^ temp[0][j]); // 1
+
+            temp[2][j] = (byte) (multiplyX(temp[2][j]) //x
+                    ^ multiplyX(temp[3][j]) ^ temp[3][j] //x+1
+                    ^ temp[0][j] // 1
+                    ^ temp[1][j]); // 1
+
+            temp[3][j] = (byte) (multiplyX(temp[3][j]) //x
+                    ^ multiplyX(temp[0][j]) ^ temp[0][j] //x+1
+                    ^ temp[1][j] // 1
+                    ^ temp[2][j]); // 1
+        }
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                matrix[i][j] = temp[i][j];
+            }
+        }
+    }
+
+    private byte multiplyX2(byte inputByte) { //x * multiplyX
+        byte temp;
+        temp = multiplyX(inputByte);
+        temp = multiplyX(temp);
+        return temp;
+    }
+
+    private byte multiplyX3(byte inputByte) { //x * mulptiplyX2
+        byte temp;
+        temp = multiplyX(inputByte);
+        temp = multiplyX(temp);
+        temp = multiplyX(temp);
+        return temp;
     }
 
     private void invMixColumns() {//dont forget about keyschedule call
-        matrix = multiplyMatrix(invMixcolumnMatrix);
+        /*private final byte[][] invMixcolumnMatrix = 
+         {{(byte) 0x0e, (byte) 0x0b, (byte) 0x0d, (byte) 0x09},
+         {(byte) 0x09, (byte) 0x0e, (byte) 0x0b, (byte) 0x0d},
+         {(byte) 0x0d, (byte) 0x09, (byte) 0x0e, (byte) 0x0b},
+         {(byte) 0x0b, (byte) 0x0d, (byte) 0x09, (byte) 0x0e}};*/
+        byte[][] temp = new byte[r][c];
+
+        for (int j = 0; j < c; j++) {
+            temp[0][j] = (byte) (multiplyX3(temp[0][j]) ^ multiplyX2(temp[0][j]) ^ multiplyX(temp[0][j])//x^3 XOR x^2 XOR x
+                    ^ multiplyX3(temp[1][j]) ^ multiplyX(temp[1][j]) ^ temp[1][j]//x^3 XOR x XOR 1
+                    ^ multiplyX3(temp[2][j]) ^ multiplyX2(temp[2][j]) ^ temp[2][j]//x^3 XOR X^2 XOR 1
+                    ^ multiplyX3(temp[3][j]) ^ temp[3][j]);//x^3 XOR 1
+
+            temp[1][j] = (byte) (multiplyX3(temp[1][j]) ^ multiplyX2(temp[1][j]) ^ multiplyX(temp[1][j])//x^3 XOR x^2 XOR x
+                    ^ multiplyX3(temp[2][j]) ^ multiplyX(temp[2][j]) ^ temp[2][j]//x^3 XOR x XOR 1
+                    ^ multiplyX3(temp[3][j]) ^ multiplyX2(temp[3][j]) ^ temp[3][j]//x^3 XOR X^2 XOR 1
+                    ^ multiplyX3(temp[0][j]) ^ temp[0][j]);//x^3 XOR 1
+
+            temp[2][j] = (byte) (multiplyX3(temp[2][j]) ^ multiplyX2(temp[2][j]) ^ multiplyX(temp[2][j])//x^3 XOR x^2 XOR x
+                    ^ multiplyX3(temp[3][j]) ^ multiplyX(temp[3][j]) ^ temp[3][j]//x^3 XOR x XOR 1
+                    ^ multiplyX3(temp[0][j]) ^ multiplyX2(temp[0][j]) ^ temp[0][j]//x^3 XOR X^2 XOR 1
+                    ^ multiplyX3(temp[1][j]) ^ temp[1][j]);//x^3 XOR 1
+
+            temp[3][j] = (byte) (multiplyX3(temp[3][j]) ^ multiplyX2(temp[3][j]) ^ multiplyX(temp[3][j])//x^3 XOR x^2 XOR x
+                    ^ multiplyX3(temp[0][j]) ^ multiplyX(temp[0][j]) ^ temp[0][j]//x^3 XOR x XOR 1
+                    ^ multiplyX3(temp[1][j]) ^ multiplyX2(temp[1][j]) ^ temp[1][j]//x^3 XOR X^2 XOR 1
+                    ^ multiplyX3(temp[2][j]) ^ temp[2][j]);//x^3 XOR 1
+        }
     }
 
-    public byte[][] crypt() {
+    public byte[][] crypt(byte[] plaintext) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                matrix[i][j] = plaintext[4 * i + j];
+            }
+        }
         addRoundKey(0);
         for (int round = 1; round < 10; round++) {
             subBytes();
@@ -261,7 +321,14 @@ public class Matrix {
         shiftRows();
         addRoundKey(10);
 
-        return this.matrix;
+        byte[] ciphertext = new byte[16];
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                ciphertext[i * 4 + j] = matrix[i][j];
+            }
+        }
+        return matrix;
     }
 
     public byte[][] decrypt() {
