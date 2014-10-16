@@ -5,10 +5,15 @@
  */
 package aes128;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import static java.lang.System.out;
 import java.util.Scanner;
 
 /**
@@ -69,23 +74,21 @@ public class AES128 {
             System.out.println("Error Reading The Key.");
 
         }
+        byte[] ciphertext = new byte[16];
+        byte[] plaintext = new byte[16];
 
         Matrix cryptIt = new Matrix(fromkey);
-        for(int i=0;i<cryptIt.matrix.length;i++){
-            for(int j=0;j<cryptIt.matrix[0].length;j++){
-               cryptIt.matrix[i][j] = fromfile[4*i+j]; 
-            }
-        }
-        
-        /*cryptIt.createWord();
-        
-         for(int i=0;i<cryptIt.matrix.length;i++){
-         for(int j=0;j<cryptIt.matrix[0].length;j++){
-         System.out.println(cryptIt.matrix[i][j]);
-         }
-         }*/
-        
+        ciphertext = cryptIt.encrypt(fromfile);
 
+        
+//       try {
+//          FileOutputStream cypher = new FileOutputStream("ciphertext.txt");
+//          ObjectOutputStream save = new ObjectOutputStream(cypher);
+//          save.write(ciphertext);
+//          save.close();
+//        } catch ( IOException e ) {
+//           e.printStackTrace();
+//        }
         Scanner in = new Scanner(System.in);
         // print menu
         System.out.println("1. Crypt");
@@ -100,21 +103,18 @@ public class AES128 {
             switch (menuItem) {
                 case "1":
                     System.out.println("You've chosen to crypt plaintext...");
-                    cryptIt.crypt(fromfile);
-                    for (int i = 0; i < cryptIt.matrix.length; i++) {
-                        for (int j = 0; j < cryptIt.matrix[0].length; j++) {
-                            System.out.println(cryptIt.toChar());
-                        }
+                    for (int i = 0; i < ciphertext.length; i++) {
+                        System.out.print((char) ciphertext[i]);
                     }
+                    System.out.println();
                     break;
                 case "2":
                     System.out.println("You've chosen to decrypt cryptotext...");
-                    cryptIt.decrypt();
-                    for (int i = 0; i < cryptIt.matrix.length; i++) {
-                        for (int j = 0; j < cryptIt.matrix[0].length; j++) {
-                            System.out.println(cryptIt.toChar());
-                        }
+                    plaintext = cryptIt.decrypt(ciphertext);
+                    for (int i = 0; i < plaintext.length; i++) {
+                        System.out.print((char) plaintext[i]);
                     }
+                    System.out.println();
                     break;
                 case "0":
                     quit = true;

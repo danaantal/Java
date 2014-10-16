@@ -86,8 +86,8 @@ public class Matrix {
     //x^8+x^4+x^3+x+1  
     final byte polynom = 0x1B;
 
-    private int r, c; //rows, columns
-    public byte[][] matrix;
+    private int r = 4, c = 4; //rows, columns
+    public byte[][] matrix = new byte[4][4];
     private byte[] key;
     private byte[][] word;
 
@@ -95,12 +95,16 @@ public class Matrix {
         word = new byte[44][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                word[i][j] = b[4 * i + (3 - j)];               
+                word[i][j] = b[4 * i + (3 - j)];
             }
         }
         keySchedule();
 
-        matrix = new byte[4][4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                matrix[i][j] = (byte) 0x61; // "a"
+            }
+        }
     }
 
     public String toChar() {
@@ -131,19 +135,20 @@ public class Matrix {
                 for (int j = 0; j < 4; j++) {//SBox on each column element
                     temp[j] = SBox[temp[j] & 0xff];
                 }
-                temp[3]^= RCon[i / 4];//rcon XOR operation
+                temp[3] ^= RCon[i / 4];//rcon XOR operation
             }//end if
             for (int j = 0; j < 4; j++) {
                 word[i][j] = (byte) (temp[j] ^ word[i - 4][j]);//XOR operation with the first column of the word
+                // System.out.println(word[i][j]);
             }
         }//end for of i
     }
 
     private void addRoundKey(int round) {
+
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                matrix[r][c]^=word[4*round+c][3-r];
-                System.out.println("addrrrr");
+                this.matrix[i][j] ^= word[i][j];
             }
         }
     }
@@ -151,7 +156,7 @@ public class Matrix {
     public void subBytes() {
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                matrix[i][j] = SBox[matrix[i][j] & 0xFF];
+                this.matrix[i][j] = SBox[this.matrix[i][j] & 0xFF];
             }
         }
     }
@@ -159,7 +164,7 @@ public class Matrix {
     private void invSubBytes() {
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                matrix[i][j] = invSBox[matrix[i][j] & 0xFF];
+                this.matrix[i][j] = invSBox[this.matrix[i][j] & 0xFF];
             }
         }
     }
@@ -168,47 +173,47 @@ public class Matrix {
         //row 0 remains unchanged
         byte tmp;
         //row 1 - element 0 becomes element 3
-        tmp = matrix[1][0];
+        tmp = this.matrix[1][0];
         for (int col = 0; col < 3; col++) {
-            matrix[1][col] = matrix[1][col + 1];
+            this.matrix[1][col] = this.matrix[1][col + 1];
         }
-        matrix[1][3] = tmp;
+        this.matrix[1][3] = tmp;
         //row 2 - element 0 becomes element 2 and element 1 becomes element 3
-        tmp = matrix[2][0];
-        matrix[2][0] = matrix[2][2];
-        matrix[2][2] = tmp;
-        tmp = matrix[2][1];
-        matrix[2][1] = matrix[2][3];
-        matrix[2][3] = tmp;
+        tmp = this.matrix[2][0];
+        this.matrix[2][0] = this.matrix[2][2];
+        this.matrix[2][2] = tmp;
+        tmp = this.matrix[2][1];
+        this.matrix[2][1] = this.matrix[2][3];
+        this.matrix[2][3] = tmp;
         //row 3 - element 0 becomes element 3, element 1 becomes element 2 and element 2 becomes element 1
-        tmp = matrix[3][3];
+        tmp = this.matrix[3][3];
         for (int col = 3; col > 0; col--) {
-            matrix[3][col] = matrix[3][col - 1];
+            this.matrix[3][col] = this.matrix[3][col - 1];
         }
-        matrix[3][0] = tmp;
+        this.matrix[3][0] = tmp;
     }
 
     private void invShiftRows() {
         byte tmp;
         //row 3 - element 3 becomes element 0, element 2 becomes element 1 and element 1 becomes element 2
-        tmp = matrix[3][0];
+        tmp = this.matrix[3][0];
         for (int col = 0; col < 3; col++) {
-            matrix[3][col] = matrix[3][col + 1];
+            this.matrix[3][col] = this.matrix[3][col + 1];
         }
-        matrix[3][3] = tmp;
+        this.matrix[3][3] = tmp;
         //row 2 - element 2 becomes element 0 and element 3 becomes element 1
-        tmp = matrix[2][0];
-        matrix[2][0] = matrix[2][2];
-        matrix[2][2] = tmp;
-        tmp = matrix[2][1];
-        matrix[2][1] = matrix[2][3];
-        matrix[2][3] = tmp;
+        tmp = this.matrix[2][0];
+        this.matrix[2][0] = this.matrix[2][2];
+        this.matrix[2][2] = tmp;
+        tmp = this.matrix[2][1];
+        this.matrix[2][1] = this.matrix[2][3];
+        this.matrix[2][3] = tmp;
         //row 1 - element 3 becomes element 0
-        tmp = matrix[1][3];
+        tmp = this.matrix[1][3];
         for (int col = 3; col > 0; c--) {
-            matrix[1][col] = matrix[1][col - 1];
+            this.matrix[1][col] = this.matrix[1][col - 1];
         }
-        matrix[1][0] = tmp;
+        this.matrix[1][0] = tmp;
     }
 
     private byte multiplyX(byte inputByte) {//daca primul bit este 1: shiftare la stanga cu o pozitie, 
@@ -253,7 +258,7 @@ public class Matrix {
         }
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                matrix[i][j] = temp[i][j];
+                this.matrix[i][j] = temp[i][j];
             }
         }
     }
@@ -304,12 +309,13 @@ public class Matrix {
         }
     }
 
-    public byte[][] crypt(byte[] plaintext) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                matrix[i][j] = plaintext[4 * i + j];
+    public byte[] encrypt(byte[] plaintext) {
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                this.matrix[i][j] = plaintext[4 * i + j];
             }
         }
+
         addRoundKey(0);
         for (int round = 1; round < 10; round++) {
             subBytes();
@@ -325,15 +331,19 @@ public class Matrix {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                ciphertext[i * 4 + j] = matrix[i][j];
+                ciphertext[i * 4 + j] = this.matrix[i][j];
             }
         }
-        return matrix;
+        return ciphertext;
     }
 
-    public byte[][] decrypt() {
+    public byte[] decrypt(byte[] ciphertext) {
+        for(int i=0;i<4;i++)  
+           for(int j=0;j<4;j++)  
+               this.matrix[i][j] = ciphertext[i*4+j]; 
+        
         addRoundKey(10);
-        for (int round = 9; round < 0; round--) {
+            for (int round = 9; round > 0; round--) {
             invShiftRows();
             invSubBytes();
             addRoundKey(round);
@@ -342,6 +352,14 @@ public class Matrix {
         invShiftRows();
         invSubBytes();
         addRoundKey(0);
-        return this.matrix;
+        
+        byte[] plaintext = new byte[16];
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                plaintext[i * 4 + j] = this.matrix[i][j];
+            }
+        }
+        return plaintext;
     }
 }
