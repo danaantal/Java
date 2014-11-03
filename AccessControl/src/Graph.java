@@ -94,7 +94,7 @@ public class Graph {
 					this.isles.add(isle);
 
 					for (int i = 0; i < isle.size(); i++) {
-						System.out.println(isle.get(i).toString());
+						System.out.println("Isle: " + isle.get(i).toString());
 					}
 					isle = new ArrayList<Node>();
 				}
@@ -137,18 +137,24 @@ public class Graph {
 		for (int i = 0; i < edges.size(); i++) {
 			Edge edge;
 			edge = edges.get(i);
-			if (edge.initial.type.equals("sub") && edge.right.equals("take")) {
+			if (terminalSpan(edge.initial) == true
+					|| terminalSpan(edge.finall) == true
+					|| // t*<- OR t*-> OR t*->g->t*<- OR t*->g<-t*<-
+					(initialSpan(edge.initial) == true && terminalSpan(edge.finall) == true)
+					|| (initialSpan(edge.finall) == true && terminalSpan(edge.initial) == true)) {
 
 				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
-	public void initialSpan(Node node) {// p extends to p' -> "take" and "grant"
-										// rights
+	public boolean initialSpan(Node node) {// p extends to p' -> "take" and
+											// "grant"
+											// rights
 		ArrayList<Node> inSpan = new ArrayList<Node>();
 		inSpan.add(node);
+		boolean flag = false;
 		Edge edge;
 
 		for (int i = 0; i < edges.size(); i++) {
@@ -164,6 +170,7 @@ public class Graph {
 				node = edge.finall;// the current node id the final node of the
 									// checked edge
 				i = -1;
+				flag = true;
 			} else if (edge.initial == node && edge.right.equals("grant")) {// verify
 																			// all
 																			// the
@@ -174,16 +181,19 @@ public class Graph {
 																			// the
 																			// BEGINING
 				inSpan.add(edge.finall);
+				flag = true;
 				break;
 			}
 		}
-		System.out.println(inSpan);
+		System.out.println("InitialSpan: " + inSpan);
+		return flag;
 	}
 
-	public void terminalSpan(Node node) {// s extends to s' -> only "take"
+	public boolean terminalSpan(Node node) {// s extends to s' -> only "take"
 											// rights
 		ArrayList<Node> termSpan = new ArrayList<Node>();
 		termSpan.add(node);
+		boolean flag = false;
 		int j;
 		Edge edge;
 
@@ -199,6 +209,7 @@ public class Graph {
 				termSpan.add(edge.initial);
 				node = edge.initial;
 				i = -1;
+				flag = true;
 			}
 		}
 		j = termSpan.size() - 1;
@@ -213,14 +224,15 @@ public class Graph {
 				break;
 			}
 		}
-		System.out.println(termSpan);
+		System.out.println("TerminalSpan" + termSpan);
+		return flag;
 	}
 
 	public boolean canShare(String r, Node x, Node p, Graph G) {// p shares r
 																// right with x
 																// object in
 																// graph G
-		Node node;
+		Node node = null;
 		boolean flag = false;
 		for (Edge edge : edges) {
 			if (edge.finall == x && edge.right.equals("r/w")) {// if x final
@@ -233,9 +245,22 @@ public class Graph {
 			}
 		}
 		if (flag == true) {
-			this.getIsle();
-		}
+			if (this.initialSpan(p) == true) {
+				if (this.terminalSpan(node) == true) {
+					ArrayList<Node> visited = new ArrayList<Node>();
+					visited.add(p);
+					tgPaths(node, visited);
+					this.getIsle();
+					if (this.getBrigde() == false) {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			}// endif terminalSpan
+		}// endif initialSpan
 
 		return flag;
-	}
+	}// endif flag
+
 }
