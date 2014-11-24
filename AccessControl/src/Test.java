@@ -2,7 +2,7 @@ public class Test {
 
 	public static void main(String[] args) {
 
-	/*	Graph G = new Graph();
+		Graph G = new Graph();
 
 		Node p = new Node("p", "sub");
 		Node u = new Node("u", "sub");
@@ -40,9 +40,9 @@ public class Test {
 		G.addEdge(e6);
 		G.addEdge(e7);
 		G.addEdge(e8);
-		G.addEdge(e9);*/
+		G.addEdge(e9);
 
-		Graph G = new Graph();
+		/*Graph G = new Graph();
 
 		Node one = new Node("1", "sub");
 		Node two = new Node("2", "sub");
@@ -172,6 +172,7 @@ public class Test {
 		Edge e32 = new Edge(twentytwo, thirty, "take");
 		Edge e33 = new Edge(twentytwo, twentythree, "grant");
 		Edge e34 = new Edge(sixteen, twentythree, "grant");
+	//	Edge e35 = new Edge(twentythree, twentyfour, "take");
 		Edge e35 = new Edge(twentythree, twentyfour, "r/w");
 		Edge e36 = new Edge(twentyfour, twentyfive, "take");
 		Edge e37 = new Edge(twentysix, twentyfive, "take");
@@ -280,23 +281,23 @@ public class Test {
 		G.addEdge(e69);
 		G.addEdge(e70);
 
-		if (G.canShare(e35.right, fortysix, one, G)) {// p can share the
+		if (G.canShare(e35.right, thirtyfour, two, G)) {// p can share the
 														// right labeled on
 														// e35 edge with q in G
 														// graph
-			System.out.println(one + " can share the rights with " + fortysix
+			System.out.println(two + " can share the rights with " + thirtyfour
 					+ " in G graph");
 		} else
-			System.out.println(one + " can not share the rights  with "
-					+ fortysix + " in G graph");
+			System.out.println(two + " can not share the rights  with "
+					+ thirtyfour + " in G graph");*/
 
-		/*if (G.canShare(e9.right, q, p, G)) {// p can share the right labeled on	
+		if (G.canShare(e9.right, q, p, G)) {// p can share the right labeled on	
 		 // e9 edge with q in G graph
 		 System.out.println(p + " can share the rights with " + q
 	 + " in G graph");
 		 } else
 		 System.out.println(p + " can not share the rights  with " + q
-		 + " in G graph");*/
+		 + " in G graph");
 	}
 
 }

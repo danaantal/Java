@@ -94,7 +94,7 @@ public class Graph {
 					this.isles.add(isle);
 
 					for (int i = 0; i < isle.size(); i++) {
-						System.out.println("Isle: " + isle.get(i).toString());
+						System.out.println("Isle: " + isle.get(i).toString());						
 					}
 					isle = new ArrayList<Node>();
 				}
@@ -109,8 +109,12 @@ public class Graph {
 		int count = 0;
 
 		for (count = 0; count < countMax; count++) {
-			Node from = isles.get(count).get(isles.get(count).size() - 1);
-			Node to = isles.get(count + 1).get(0);
+			if(count == countMax - 1)
+				{
+				break;
+				}
+			Node from = this.isles.get(count).get(isles.get(count).size() - 1);
+			Node to = this.isles.get(count + 1).get(0);
 			flag = false;
 			for (Node nod : this.tgPath.get(0)) {
 				if (nod == from) {
@@ -129,18 +133,21 @@ public class Graph {
 				return false;
 			}
 			bridge = new ArrayList<Node>();
+			for(int i=0;i<bridge.size();i++){
+				System.out.println("Bridge: " + bridge.get(i));
+			}
+			System.out.println("count: " + count);
 		}
 		return true;
 	}
 
-	public boolean isBridge(ArrayList<Node> nodes) {
+	public boolean isBridge(ArrayList<Node> nodes) {// t*<- OR t*-> OR t*->g->t*<- OR t*->g<-t*<-
 		for (int i = 0; i < edges.size(); i++) {
 			Edge edge;
 			edge = edges.get(i);
 			if (terminalSpan(edge.initial) == true
 					|| terminalSpan(edge.finall) == true
-					|| // t*<- OR t*-> OR t*->g->t*<- OR t*->g<-t*<-
-					(initialSpan(edge.initial) == true && terminalSpan(edge.finall) == true)
+					|| (initialSpan(edge.initial) == true && terminalSpan(edge.finall) == true)
 					|| (initialSpan(edge.finall) == true && terminalSpan(edge.initial) == true)) {
 
 				return true;
@@ -148,7 +155,7 @@ public class Graph {
 		}
 		return false;
 	}
-
+	//SECOND CONDITION from Theorem 5
 	public boolean initialSpan(Node node) {// p extends to p' -> "take" and
 											// "grant"
 											// rights
@@ -167,9 +174,9 @@ public class Graph {
 																	// from the
 																	// BEGINING
 				inSpan.add(edge.finall);// add the final node to the array
-				node = edge.finall;// the current node id the final node of the
+				node = edge.finall;// the current node is the final node of the
 									// checked edge
-				i = -1;
+				i++;
 				flag = true;
 			} else if (edge.initial == node && edge.right.equals("grant")) {// verify
 																			// all
@@ -188,7 +195,7 @@ public class Graph {
 		System.out.println("InitialSpan: " + inSpan);
 		return flag;
 	}
-
+	//THIRD CONDITION from Theorem 5
 	public boolean terminalSpan(Node node) {// s extends to s' -> only "take"
 											// rights
 		ArrayList<Node> termSpan = new ArrayList<Node>();
@@ -199,26 +206,17 @@ public class Graph {
 
 		for (int i = 0; i < edges.size(); i++) {
 			edge = edges.get(i);
-			if (edge.finall == node && edge.right.equals("take")) {// verify all
-																	// the
-																	// "take"
-																	// labeled
-																	// edges
-																	// from the
-																	// END
+			if (edge.finall == node && edge.right.equals("take")) {// verify all the"take" labeled edges from the END
 				termSpan.add(edge.initial);
 				node = edge.initial;
-				i = -1;
+				i--;
 				flag = true;
 			}
 		}
 		j = termSpan.size() - 1;
 		for (; j > 0; j--) {
-			if (termSpan.get(j).type.equals("ob")) {// if the terminal span
-													// contains objects we
-													// remove them because we
-													// want to know the "take"
-													// path through subjects
+			if (termSpan.get(j).type.equals("ob")) {// if the terminal span contains objects we remove them because 
+													//we want to know the "take" path through subjects
 				termSpan.remove(termSpan.get(j));
 			} else {
 				break;
@@ -228,18 +226,11 @@ public class Graph {
 		return flag;
 	}
 
-	public boolean canShare(String r, Node x, Node p, Graph G) {// p shares r
-																// right with x
-																// object in
-																// graph G
+	public boolean canShare(String r, Node x, Node p, Graph G) {// p shares r right with x object in graph G
 		Node node = null;
 		boolean flag = false;
 		for (Edge edge : edges) {
-			if (edge.finall == x && edge.right.equals("r/w")) {// if x final
-																// node and the
-																// edge is
-																// labeled with
-																// "r/w" right
+			if (edge.finall == x && edge.right.equals("r/w")) {// if x final node and the edge is labeled with "r/w" right
 				flag = true;
 				node = edge.initial;
 			}
