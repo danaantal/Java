@@ -1,0 +1,10 @@
+U1 TS
+U2 S
+U3 C
+U4 U
+U5 TS
+U6 C
+U7 U
+U8 C
+U9 S
+U10 S

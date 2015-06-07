@@ -1,0 +1,13 @@
+S1 TS
+S2 U
+S3 U
+S4 S
+S5 C
+S6 C
+S7 S
+S8 TS
+S9 C
+S10 TS
+S11 S
+S12 U
+S13 TS 
