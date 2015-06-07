@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -37,7 +39,6 @@ public class PostCandidate {
 		return myfields;
 	}
 
-	
 	@Test
 	public void postCandidate(){
 		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
@@ -60,12 +61,27 @@ public class PostCandidate {
 	
 	@Test
 	public void postCandidates() throws Exception{
+		int x = 0;
 		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
 		String path = "/candidates";
 		File candidatesFile = new File("candidates to post.json");
 		ArrayList<String> field = readFile(candidatesFile);
-		System.out.println(field);
+		List<String> sublist = new ArrayList<String>();
+		Map<String, Object> jsonAsMap = new HashMap<>();
 		
-	}
+		//		System.out.println(field);
 
+		if  (field.size() == 0) {
+			System.out.println("Error: No elements in the arraylist");
+		}
+		else{
+			for(x=0;x<field.size();){
+			 sublist = new ArrayList<String>(field.subList(x, x+5));
+	            x+=5;
+	            System.out.println(sublist);
+	           
+			}
+		}
+
+	}
 }
