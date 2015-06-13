@@ -1,6 +1,11 @@
 import static com.jayway.restassured.RestAssured.get;
 import static com.jayway.restassured.RestAssured.given;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import integrationTesting.ReadFile;
+import integrationTesting.WriteFile;
+
+import java.io.File;
+import java.io.IOException;
 
 import org.junit.Test;
 
@@ -11,11 +16,12 @@ import com.jayway.restassured.response.Response;
 
 
 public class GetAdmissions {
-//	private static final String JSON =  "application/JSON";
+	WriteFile writeInFile = new WriteFile();
+	ReadFile readMyFile = new ReadFile();
 	
 	@Test
 	public void testStatusCode(){
-		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
 		String path = "/admission_results/notfound";
 		
 		get(path).
@@ -27,7 +33,8 @@ public class GetAdmissions {
 	
 	@Test
 	public void getAdmissions(){
-		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
+		File getAdmissions = new File("get admissions.txt");
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
 		String path = "/admission_results";
 		Response response = 
 				given().
@@ -37,13 +44,17 @@ public class GetAdmissions {
 				        contentType(ContentType.JSON).
 				        extract().	
 				        response();
-		response.prettyPrint();	
+		writeInFile.writeInFile(response, getAdmissions);	
 	}
 	
 	@Test
-	public void getAdmissionByCandidateId(){
-		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
-		String path = "/admission_results/MZOp";
+	public void getAdmissionByCandidateId() throws IOException{
+		File idString = new File("get candidate id to modify.txt");
+		File getAdmissionById = new File("get admission by ID.txt");
+		String id = readMyFile.readString(idString);
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
+		String path = "/admission_results/" + id;
+		
 		
 		Response response = get(path);
 		
@@ -52,13 +63,9 @@ public class GetAdmissions {
 		String json = response.asString();
 		JsonPath jsp = new JsonPath(json);
 		
-		assertEquals("6OZV", jsp.get("id"));
-		assertEquals("9.77", jsp.get("finalGrade").toString());
-		assertEquals("MZOp", jsp.get("candidateId"));
-		assertEquals("tax_free", jsp.get("admissionStatus.statusString"));
-		assertEquals("0", jsp.get("admissionStatus.statusInt").toString());
+		assertEquals(id, jsp.get("candidateId"));
 		
-		response.prettyPrint();
+		writeInFile.writeInFile(response, getAdmissionById);	
 	}
 	}
 	

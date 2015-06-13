@@ -1,12 +1,11 @@
 import static com.jayway.restassured.RestAssured.given;
+import integrationTesting.ReadFile;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -16,41 +15,20 @@ import com.jayway.restassured.http.ContentType;
 
 
 public class PostCandidate {
+	ReadFile readMyFile = new ReadFile();
 	
-	public ArrayList<String> readFile(File f) throws Exception{	
-		@SuppressWarnings("resource")
-		BufferedReader reader = new BufferedReader( new FileReader( f ) ); //Setup the reader	
-		ArrayList<String> myfields = new ArrayList<>();
-		
-		while (reader.ready()) { //While there are content left to read
-			String line = reader.readLine(); //Read the next line from the file
-			
-			String[] tokens = line.split( "\\{" ); //Split the string at every { character. Place the results in an array.			
-			for (String token : tokens){ //Iterate through all of the found results
-				String[] fields = token.split(",");
-				for (String field : fields){
-//					System.out.println(field);
-					myfields.add(field);									
-				}
-//				System.out.println(token);
-			}
-		}
-		reader.close(); //Stop using the resource
-		return myfields;
-	}
-
 	@Test
 	public void postCandidate(){
-		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
 		String path = "/candidates";
 		Map<String, Object> jsonAsMap = new HashMap<>();
-		
+
 		jsonAsMap.put("lastName","Jolie");
 		jsonAsMap.put("gpaGrade", 9.3);
 		jsonAsMap.put("ATestGrade", 8.9);
 		jsonAsMap.put("socialId","347389523255435");
 		jsonAsMap.put("firstName", "Angelina");
-		
+		System.out.println(jsonAsMap);
 		given().
 			contentType(ContentType.JSON).
 			body(jsonAsMap).
@@ -58,30 +36,35 @@ public class PostCandidate {
 			post(path).
 		then().assertThat().statusCode(201);
 	}
-	
+
 	@Test
-	public void postCandidates() throws Exception{
-		int x = 0;
-		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
+	public void postCandidates() throws Exception{ //bulk post of candidates
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
 		String path = "/candidates";
-		File candidatesFile = new File("candidates to post.json");
-		ArrayList<String> field = readFile(candidatesFile);
-		List<String> sublist = new ArrayList<String>();
-		Map<String, Object> jsonAsMap = new HashMap<>();
-		
-		//		System.out.println(field);
+
+		File candidatesFile = new File("candidates to post.json");//set the file from which to read candidates
+		ArrayList<String> field = readMyFile.readFile(candidatesFile);//create the arraylist of candidates
+		Map<String, Object> jsonAsMap = new HashMap<>();//create hashmap to senf payload to server
 
 		if  (field.size() == 0) {
 			System.out.println("Error: No elements in the arraylist");
 		}
 		else{
-			for(x=0;x<field.size();){
-			 sublist = new ArrayList<String>(field.subList(x, x+5));
-	            x+=5;
-	            System.out.println(sublist);
-	           
+			for(int i = 0; i<field.size()-1;i+=2){	//foreach array element, the even positions are the keys and the even positions are the values
+				if(i!=0 && i%10==0){//if jsonasmap does not contain 5 elements keep adding, else post to server
+					//					System.out.println(jsonAsMap.toString());
+					given().
+						contentType(ContentType.JSON).
+						body(jsonAsMap).
+					when().
+						post(path).
+					then().assertThat().statusCode(201);
+				}//endif
+				jsonAsMap.put(field.get(i), field.get(i+1));
 			}
 		}
 
-	}
+
+
+	}	
 }

@@ -7,7 +7,7 @@ public class DeleteAdmission {
 
 	@Test
 	public void deleteAdmission() {
-	RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
 		
 //		given().
 //		when().

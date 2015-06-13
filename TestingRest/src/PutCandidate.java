@@ -12,12 +12,11 @@ public class PutCandidate {
 
 	@Test
 	public void putCandidate() {
-		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
 		
 		String path = "/candidates/sH3H";
 		Map<String, Object>  jsonAsMap = new HashMap<>();
 		
-		jsonAsMap.put("id","sH3H");
 		jsonAsMap.put("lastName","Antal");
 		jsonAsMap.put("gpaGrade", 9.3);
 		jsonAsMap.put("ATestGrade", 8.9);

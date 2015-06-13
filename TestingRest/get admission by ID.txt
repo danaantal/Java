@@ -1,0 +1,9 @@
+{
+	"admissionStatus": {
+		"statusString": "tax_free",
+		"statusInt": 0
+	},
+	"finalGrade": 9.1,
+	"id": "yLRM",
+	"candidateId": "OQV9"
+}

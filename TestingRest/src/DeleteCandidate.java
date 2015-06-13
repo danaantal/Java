@@ -8,7 +8,7 @@ public class DeleteCandidate {
 
 	@Test
 	public void deleteCandidate() {
-		RestAssured.baseURI = "http://fii-admis-restservice-dt5dd3kc2v.elasticbeanstalk.com/api";
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
 		String path = "/candidates/2OGp";
 		
 		given().

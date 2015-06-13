@@ -1,0 +1,314 @@
+{
+	"candidates": [{
+		"lastName": "Antal",
+		"firstName": "Dana-Elena",
+		"socialId": "1244511255444",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "OQV9"
+	},
+	{
+		"lastName": "Banica",
+		"firstName": "George",
+		"socialId": "1910417104043",
+		"gpaGrade": 8.37,
+		"ATestGrade": 7.34,
+		"id": "7XUL"
+	},
+	{
+		"lastName": "Bonciu",
+		"firstName": "Marta",
+		"socialId": "2910711007680",
+		"gpaGrade": 9.29,
+		"ATestGrade": 8.64,
+		"id": "bWdB"
+	},
+	{
+		"lastName": "Brezeanu",
+		"firstName": "Nicoleta",
+		"socialId": "2901121352855",
+		"gpaGrade": 9.54,
+		"ATestGrade": 8.46,
+		"id": "vprd"
+	},
+	{
+		"lastName": "Coman",
+		"firstName": "Toma",
+		"socialId": "1910626157979",
+		"gpaGrade": 7.4,
+		"ATestGrade": 7.9,
+		"id": "YL5I"
+	},
+	{
+		"lastName": "Dedu",
+		"firstName": "Lidia",
+		"socialId": "2910506976611",
+		"gpaGrade": 8.37,
+		"ATestGrade": 9.35,
+		"id": "F8wT"
+	},
+	{
+		"lastName": "Dinu",
+		"firstName": "Ionut",
+		"socialId": "1960429395488",
+		"gpaGrade": 8.45,
+		"ATestGrade": 7.98,
+		"id": "E4P1"
+	},
+	{
+		"lastName": "Dragan",
+		"firstName": "Felicia",
+		"socialId": "2910323091987",
+		"gpaGrade": 7.9,
+		"ATestGrade": 7.56,
+		"id": "7ylG"
+	},
+	{
+		"lastName": "Duta",
+		"firstName": "Marius",
+		"socialId": "1910607137091",
+		"gpaGrade": 9.06,
+		"ATestGrade": 6.19,
+		"id": "qZjb"
+	},
+	{
+		"lastName": "Florea",
+		"firstName": "Andreea",
+		"socialId": "2900517860265",
+		"gpaGrade": 8.58,
+		"ATestGrade": 7.54,
+		"id": "uEmZ"
+	},
+	{
+		"lastName": "Ionescu",
+		"firstName": "Elena",
+		"socialId": "2910721925153",
+		"gpaGrade": 9.1,
+		"ATestGrade": 7.25,
+		"id": "DWwf"
+	},
+	{
+		"lastName": "Ionescu",
+		"firstName": "Vlad",
+		"socialId": "1234567891234",
+		"gpaGrade": 9.34,
+		"ATestGrade": 5.69,
+		"id": "7dXG"
+	},
+	{
+		"lastName": "Ionescu",
+		"firstName": "Vasile",
+		"socialId": "1910209070010",
+		"gpaGrade": 9.34,
+		"ATestGrade": 5.69,
+		"id": "JNQF"
+	},
+	{
+		"lastName": "Iridon",
+		"firstName": "Adriana",
+		"socialId": "2900207148328",
+		"gpaGrade": 4.67,
+		"ATestGrade": 9.56,
+		"id": "xa3d"
+	},
+	{
+		"lastName": "Ivanescu",
+		"firstName": "Raluca",
+		"socialId": "2902312786745",
+		"gpaGrade": 9.56,
+		"ATestGrade": 9.67,
+		"id": "Lzpp"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "A1B2"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "qM3H"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "FYkJ"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "CR4G"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "dPa9"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "SLiC"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "ITEN"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "NoH9"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "VJam"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "1WXG"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "9fZa"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "4keX"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "WZ63"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "YBqf"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "AyzZ"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "MlOj"
+	},
+	{
+		"lastName": "Jolie",
+		"firstName": "Angelina",
+		"socialId": "347389523255435",
+		"gpaGrade": 9.3,
+		"ATestGrade": 8.9,
+		"id": "vqf0"
+	},
+	{
+		"lastName": "Malos",
+		"firstName": "Gabriel",
+		"socialId": "1900908345456",
+		"gpaGrade": 7.23,
+		"ATestGrade": 5.67,
+		"id": "Ie9g"
+	},
+	{
+		"lastName": "Marin",
+		"firstName": "Georgiana",
+		"socialId": "2910417104043",
+		"gpaGrade": 8.53,
+		"ATestGrade": 7.49,
+		"id": "9cjL"
+	},
+	{
+		"lastName": "Matei",
+		"firstName": "Romeo",
+		"socialId": "1910614333577",
+		"gpaGrade": 8.34,
+		"ATestGrade": 7.46,
+		"id": "um9r"
+	},
+	{
+		"lastName": "Neagu",
+		"firstName": "Victor",
+		"socialId": "1911116602268",
+		"gpaGrade": 4.9,
+		"ATestGrade": 8.45,
+		"id": "LX2Z"
+	},
+	{
+		"lastName": "Negrila",
+		"firstName": "Teodor",
+		"socialId": "1911102611485",
+		"gpaGrade": 8.9,
+		"ATestGrade": 7.89,
+		"id": "c4Tr"
+	},
+	{
+		"lastName": "Patrascu",
+		"firstName": "Emanuela",
+		"socialId": "2920802110223",
+		"gpaGrade": 9.03,
+		"ATestGrade": 6.9,
+		"id": "OtjV"
+	},
+	{
+		"lastName": "Rotaru",
+		"firstName": "Maria",
+		"socialId": "2900908785634",
+		"gpaGrade": 6.9,
+		"ATestGrade": 6.9,
+		"id": "uVry"
+	}]
+}

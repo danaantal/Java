@@ -1,0 +1,353 @@
+{
+	"admissionResults": [{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.615,
+		"id": "cpo3",
+		"candidateId": "Lzpp"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "yLRM",
+		"candidateId": "OQV9"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "uifj",
+		"candidateId": "A1B2"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "K6Dl",
+		"candidateId": "qM3H"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "uzm5",
+		"candidateId": "FYkJ"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "4tFy",
+		"candidateId": "CR4G"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "MLk5",
+		"candidateId": "dPa9"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "4rFN",
+		"candidateId": "SLiC"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "Bt7a",
+		"candidateId": "ITEN"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "rRNz",
+		"candidateId": "NoH9"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "hv5U",
+		"candidateId": "VJam"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "cQVZ",
+		"candidateId": "1WXG"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "IToR",
+		"candidateId": "9fZa"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "ioLh",
+		"candidateId": "4keX"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "3Yfy",
+		"candidateId": "WZ63"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "mpp8",
+		"candidateId": "YBqf"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "bzyu",
+		"candidateId": "AyzZ"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "LuiH",
+		"candidateId": "MlOj"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9.1,
+		"id": "FBep",
+		"candidateId": "vqf0"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax_free",
+			"statusInt": 0
+		},
+		"finalGrade": 9,
+		"id": "TVLE",
+		"candidateId": "vprd"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 8.965,
+		"id": "lSCI",
+		"candidateId": "bWdB"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 8.86,
+		"id": "b6vo",
+		"candidateId": "F8wT"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 8.395,
+		"id": "VBxA",
+		"candidateId": "c4Tr"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 8.215,
+		"id": "eCxK",
+		"candidateId": "E4P1"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 8.175,
+		"id": "akl2",
+		"candidateId": "DWwf"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 8.06,
+		"id": "WEfe",
+		"candidateId": "uEmZ"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 8.01,
+		"id": "9OLF",
+		"candidateId": "9cjL"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.965,
+		"id": "Qsew",
+		"candidateId": "OtjV"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.9,
+		"id": "GjgD",
+		"candidateId": "um9r"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.854,
+		"id": "ZoNY",
+		"candidateId": "7XUL"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.73,
+		"id": "zS1z",
+		"candidateId": "7ylG"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.65,
+		"id": "CvaK",
+		"candidateId": "YL5I"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.625,
+		"id": "w9Ry",
+		"candidateId": "qZjb"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.515,
+		"id": "nGez",
+		"candidateId": "7dXG"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.515,
+		"id": "5lYq",
+		"candidateId": "JNQF"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "tax",
+			"statusInt": 1
+		},
+		"finalGrade": 7.115,
+		"id": "WstC",
+		"candidateId": "xa3d"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "rejected",
+			"statusInt": 2
+		},
+		"finalGrade": 6.9,
+		"id": "9OnP",
+		"candidateId": "uVry"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "rejected",
+			"statusInt": 2
+		},
+		"finalGrade": 6.675,
+		"id": "Hhby",
+		"candidateId": "LX2Z"
+	},
+	{
+		"admissionStatus": {
+			"statusString": "rejected",
+			"statusInt": 2
+		},
+		"finalGrade": 6.45,
+		"id": "waYF",
+		"candidateId": "Ie9g"
+	}]
+}
