@@ -5,7 +5,6 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,11 +25,11 @@ public class GetPutGetCandidate {
 		
 		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
 		Map<String, Object>  jsonAsMap = new HashMap<>();
-		File idString = new File("get candidate id to modify.txt");
+		File idString = new File("get candidate id to modify.txt"); 
 		File progressFile = new File("getPutgetResult.txt");
-		String id = readMyFile.readString(idString);
+		String id = readMyFile.readString(idString); //read the id of the candidate from file
 		
-		String path = "/candidates/" + id; //read the id from file!!!!!!!!!!!!!!!!!
+		String path = "/candidates/" + id;
 		
 		Response response = get(path);
 		assertEquals(200, response.getStatusCode());
@@ -39,7 +38,7 @@ public class GetPutGetCandidate {
 		JsonPath jsp = new JsonPath(json);
 		
 		assertEquals(id, jsp.get("id"));
-		writeInFile.writeInFile(response, progressFile);
+		writeInFile.writeInFile(response, progressFile); // write response into file
 		
 		jsonAsMap.put("lastName","Antal");
 		jsonAsMap.put("gpaGrade", 9.3);
@@ -61,7 +60,7 @@ public class GetPutGetCandidate {
 		jsp = new JsonPath(json);
 		
 		assertEquals(id, jsp.get("id"));
-		writeInFile.appendToFile(json, progressFile);
+		writeInFile.appendToFile(json, progressFile);//write response into file
 	}
 
 }

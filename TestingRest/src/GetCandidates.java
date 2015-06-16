@@ -1,12 +1,15 @@
 import static com.jayway.restassured.RestAssured.get;
 import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import integrationTesting.ReadFile;
 import integrationTesting.WriteFile;
 
 import java.io.File;
-import java.io.PrintWriter;
+import java.io.IOException;
 
 import org.junit.Test;
+import static org.hamcrest.Matchers.*;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
@@ -15,9 +18,8 @@ import com.jayway.restassured.response.Response;
 
 
 public class GetCandidates {
-
-//	private static final String JSON =  "application/JSON";
 	WriteFile writeInFile = new WriteFile();
+	ReadFile readMyFile = new ReadFile();
 
 	@Test
 	public void getCandidates() {
@@ -33,17 +35,21 @@ public class GetCandidates {
 				        contentType(ContentType.JSON).
 				extract().
 				        response();
-		writeInFile.writeInFile(response, candidatesList);
+		assertThat(response.statusLine(), equalTo("HTTP/1.1 200 OK"));
+		writeInFile.writeInFile(response, candidatesList); //write response into file
 	}
 
 	@Test
-	public void getCandidateById(){
-		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
-		String path = "/candidates/OQV9"; //read the id from file!!!!!!!!!!!!!!!!!
+	public void getCandidateById() throws IOException{
 		File candidateById = new File("get candidate by id.txt");
+		File idString = new File("get candidate id to modify.txt");
+		String id = readMyFile.readString(idString); //read the id of the candidate from file
+		
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
+		String path = "/candidates/" + id;
 		
 		Response response = get(path);
-		assertEquals(200, response.getStatusCode());
+		assertThat(response.statusLine(), equalTo("HTTP/1.1 200 OK"));
 		
 		String json = response.asString();
 		JsonPath jsp = new JsonPath(json);
@@ -54,7 +60,7 @@ public class GetCandidates {
 //		assertEquals("7.46", jsp.get("ATestGrade").toString());
 //		assertEquals("1910614333577", jsp.get("socialId"));
 //		assertEquals("Romeo", jsp.get("firstName"));
-		writeInFile.writeInFile(response, candidateById);
+		writeInFile.writeInFile(response, candidateById); // write response into file
 		
 	}
 	@Test
@@ -70,3 +76,4 @@ public class GetCandidates {
 		System.out.println("Could Not Found " + path);
 	}
 }
+

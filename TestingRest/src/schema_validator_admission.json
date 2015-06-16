@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "admissionStatus": {
+      "id": "http://jsonschema.net/admissionStatus",
+      "type": "object",
+      "properties": {
+        "statusString": {
+          "id": "http://jsonschema.net/admissionStatus/statusString",
+          "type": "string"
+        },
+        "statusInt": {
+          "id": "http://jsonschema.net/admissionStatus/statusInt",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "statusString",
+        "statusInt"
+      ]
+    },
+    "finalGrade": {
+      "id": "http://jsonschema.net/finalGrade",
+      "type": "number"
+    },
+    "id": {
+      "id": "http://jsonschema.net/id",
+      "type": "string"
+    },
+    "candidateId": {
+      "id": "http://jsonschema.net/candidateId",
+      "type": "string"
+    }
+  },
+  "required": [
+    "admissionStatus",
+    "finalGrade",
+    "id",
+    "candidateId"
+  ]
+}

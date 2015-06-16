@@ -1,9 +1,7 @@
 import static com.jayway.restassured.RestAssured.given;
 import integrationTesting.ReadFile;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +42,7 @@ public class PostCandidate {
 
 		File candidatesFile = new File("candidates to post.json");//set the file from which to read candidates
 		ArrayList<String> field = readMyFile.readFile(candidatesFile);//create the arraylist of candidates
-		Map<String, Object> jsonAsMap = new HashMap<>();//create hashmap to senf payload to server
+		Map<String, Object> jsonAsMap = new HashMap<>();//create hashmap to send payload to server
 
 		if  (field.size() == 0) {
 			System.out.println("Error: No elements in the arraylist");
@@ -63,8 +61,27 @@ public class PostCandidate {
 				jsonAsMap.put(field.get(i), field.get(i+1));
 			}
 		}
-
-
-
 	}	
+	
+	@Test
+	public void testStatusCode(){
+		RestAssured.baseURI = "http://localhost:8080/fiiadmis-service/api";
+		String path = "/candidatesnotFound";
+		Map<String, Object> jsonAsMap = new HashMap<>();
+
+		jsonAsMap.put("lastName","Jolie");
+		jsonAsMap.put("gpaGrade", 9.3);
+		jsonAsMap.put("ATestGrade", 8.9);
+		jsonAsMap.put("socialId","347389523255435");
+		jsonAsMap.put("firstName", "Angelina");
+		System.out.println(jsonAsMap);
+		given().
+			contentType(ContentType.JSON).
+			body(jsonAsMap).
+		when().
+			post(path).
+		then().assertThat().statusCode(404);;
+		
+		System.out.println("Could Not Found " + path);
+	}
 }

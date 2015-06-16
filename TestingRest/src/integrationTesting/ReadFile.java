@@ -2,12 +2,12 @@ package integrationTesting;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReadFile {
+	
 	public ArrayList<String> readFile(File f) throws Exception{	//read from file what to post as payload
 		BufferedReader reader = new BufferedReader( new FileReader( f ) ); //Setup the reader	
 		ArrayList<String> myfields = new ArrayList<>();

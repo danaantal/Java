@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "lastName": {
+      "id": "http://jsonschema.net/lastName",
+      "type": "string"
+    },
+    "firstName": {
+      "id": "http://jsonschema.net/firstName",
+      "type": "string"
+    },
+    "socialId": {
+      "id": "http://jsonschema.net/socialId",
+      "type": "string"
+    },
+    "gpaGrade": {
+      "id": "http://jsonschema.net/gpaGrade",
+      "type": "number"
+    },
+    "ATestGrade": {
+      "id": "http://jsonschema.net/ATestGrade",
+      "type": "number"
+    },
+    "id": {
+      "id": "http://jsonschema.net/id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "lastName",
+    "firstName",
+    "socialId",
+    "gpaGrade",
+    "ATestGrade",
+    "id"
+  ]
+}
